@@ -1,0 +1,24 @@
+/** @format */
+
+.navLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: black;
+}
+
+.navLink__title {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.navLink__icon {
+  height: 25px !important;
+  width: 25px !important;
+}
