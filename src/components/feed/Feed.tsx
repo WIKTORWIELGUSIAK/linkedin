@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import "./Feed.css";
 import CreateIcon from "@mui/icons-material/Create";
 
