@@ -21,7 +21,7 @@ function Sidebar() {
         />
         <Avatar className="sidebar__avatar" />
         <h2>Wiktor Wielgusiak</h2>
-        <h4>wiktor.wielgusiak16@gmail.com</h4>
+        <h4>witia16@gmail.com</h4>
       </div>
       <div className="sidebar__stats">
         <div className="sidebar__stat">
@@ -32,13 +32,13 @@ function Sidebar() {
           <p>Views on post</p>
           <p className="sidebar__statNumber">1564</p>
         </div>
-        <div className="sidebar__bottom">
-          <p>Recent</p>
-          {recentItem("reactjs")}
-          {recentItem("programing")}
-          {recentItem("fronenddeveloper")}
-          {recentItem("typescript")}
-        </div>
+      </div>
+      <div className="sidebar__bottom">
+        <p>Recent</p>
+        {recentItem("reactjs")}
+        {recentItem("programing")}
+        {recentItem("fronenddeveloper")}
+        {recentItem("typescript")}
       </div>
     </div>
   );
