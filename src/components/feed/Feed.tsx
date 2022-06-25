@@ -7,15 +7,70 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "../post/Post";
+import { useEffect, useState } from "react";
+import {
+  onSnapshot,
+  collection,
+  query,
+  addDoc,
+  serverTimestamp,
+  DocumentData,
+  orderBy,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+
+// interface Props {
+//   id: string;
+//   data: dataI;
+// }
+// interface dataI {
+//   name: string;
+//   description: string;
+//   message: string;
+//   photoUrl?: string;
+// }
 function Feed() {
+  const [input, setInput] = useState("");
+  const [posts, setPosts] = useState<{ id: string; data: DocumentData }[]>([]);
+  const postsColection = collection(db, "posts");
+  const q = query(postsColection, orderBy("timestamp", "desc"));
+  useEffect(() => {
+    onSnapshot(q, (snapshot) => {
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+  }, []);
+  console.log(typeof posts);
+  console.log(Array.isArray(posts));
+  const sendPost = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    addDoc(postsColection, {
+      name: "Wiktor Wielgusiak",
+      description: "this is test",
+      message: input,
+      photoUrl: "",
+      timestamp: serverTimestamp(),
+    });
+    setInput("");
+  };
   return (
     <div className="feed">
       <div className="feed__inputContainer">
         <div className="feed__input">
           <CreateIcon />
           <form>
-            <input type="text" />
-            <button type="submit">Send</button>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+            />
+            <button onClick={sendPost} type="submit">
+              Send
+            </button>
           </form>
         </div>
 
@@ -42,8 +97,15 @@ function Feed() {
           ></InputOption>
         </div>
       </div>
-
-      <Post name="Wiktor Wielgusiak" description="desc" message="message" />
+      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+        <Post
+          key={id}
+          name={name}
+          description={description}
+          message={message}
+          photoUrl={photoUrl}
+        />
+      ))}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 /** @format */
 
 import { Avatar } from "@mui/material";
-import React, { useState } from "react";
 import InputOption from "../inputOption/InputOption";
 import "./Post.css";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -17,10 +16,12 @@ interface Props {
 function Post({ name, description, message, photoUrl }: Props) {
   return (
     <div className="post">
-      <Avatar />
-      <div className="post__info">
-        <h2>{name}</h2>
-        <p>{description}</p>
+      <div className="post__header">
+        <Avatar />
+        <div className="post__info">
+          <h2>{name}</h2>
+          <p>{description}</p>
+        </div>
       </div>
 
       <div className="post__body">
