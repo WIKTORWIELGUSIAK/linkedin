@@ -14,21 +14,11 @@ import {
   query,
   addDoc,
   serverTimestamp,
-  DocumentData,
   orderBy,
+  DocumentData,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../firebase-config";
 
-// interface Props {
-//   id: string;
-//   data: dataI;
-// }
-// interface dataI {
-//   name: string;
-//   description: string;
-//   message: string;
-//   photoUrl?: string;
-// }
 function Feed() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState<{ id: string; data: DocumentData }[]>([]);
@@ -44,8 +34,6 @@ function Feed() {
       );
     });
   }, []);
-  console.log(typeof posts);
-  console.log(Array.isArray(posts));
   const sendPost = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     addDoc(postsColection, {

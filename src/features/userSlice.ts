@@ -1,10 +1,10 @@
 /** @format */
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../app/store";
+import { RootState } from "./store";
 
 export interface UserState {
-  user: string | null;
+  user: object | null;
 }
 
 const initialState: UserState = {
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
+    login: (state, action: PayloadAction<object>) => {
       state.user = action.payload;
     },
     logout: (state) => {

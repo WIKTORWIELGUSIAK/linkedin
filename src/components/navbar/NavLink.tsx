@@ -6,10 +6,11 @@ interface Props {
   title: string;
   Icon?: any;
   avatar?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
-function navLink({ avatar, Icon, title }: Props) {
+function navLink({ avatar, Icon, title, onClick }: Props) {
   return (
-    <div className="navLink">
+    <div onClick={onClick} className="navLink">
       {Icon && <Icon className="navLink__icon" />}
       {avatar && <Avatar className="navLink__icon" src={avatar} />}
       <h3 className="navLink__title">{title}</h3>
