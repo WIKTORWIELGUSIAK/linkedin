@@ -7,6 +7,7 @@ import Feed from "./components/feed/Feed";
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
+import Widgets from "./components/widgets/Widgets";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebase-config";
 
@@ -38,8 +39,9 @@ function App() {
         <Login />
       ) : (
         <div className="app__body">
-          <Sidebar></Sidebar>
-          <Feed></Feed>
+          <Sidebar />
+          <Feed />
+          <Widgets />
         </div>
       )}
     </div>
