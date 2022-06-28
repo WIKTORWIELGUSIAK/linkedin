@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
 import { auth } from "../../firebase-config";
+import { User } from "firebase/auth";
 import "./Login.css";
 
 function Login() {
@@ -27,37 +28,91 @@ function Login() {
             email: userAuth.user.email,
             uid: userAuth.user.uid,
             displayName: userAuth.user.displayName,
-            profileUrl: userAuth.user.photoURL,
+            photoUrl: userAuth.user.photoURL,
           })
         );
       })
       .catch((error) => alert(error));
   };
-  console.log("test");
+  // const updateUserProfile = (user: any) => {
+  //   updateProfile(user, {
+  //     displayName: name,
+  //   });
+  // };
+  async function signUp() {
+    createUserWithEmailAndPassword(auth, email, password).then(async () => {
+      await updateUserProfile();
+      if (auth.currentUser) {
+        dispatch(
+          login({
+            email: email,
+            uid: auth.currentUser.uid,
+            displayName: name,
+            photoUrl: profilePic,
+          })
+        );
+      }
+    });
+  }
+
+  async function updateUserProfile() {
+    if (auth.currentUser) {
+      const user: User = auth.currentUser;
+
+      updateProfile(user, {
+        displayName: name,
+        photoURL: profilePic,
+      })
+        .then(() => {
+          // Profile updated!
+          console.log("Profile updated!", user);
+        })
+        .catch((error) => {
+          // An error occurred
+          console.log(error);
+        });
+    }
+  }
+
   const register = () => {
     if (!name) {
       return alert("Please enter a full name!");
     } else {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userAuth: any) => {
-          updateProfile(userAuth, {
-            displayName: name,
-            photoURL: profilePic,
-          }).then(() => {
-            dispatch(
-              login({
-                email: userAuth.user.email,
-                displayName: name,
-                photoUrl: profilePic,
-              })
-            );
-          });
-        })
-        .catch((error) => alert(error));
+      // createUserWithEmailAndPassword(auth, email, password)
+      //   .then((userAuth: any) => {
+      //     updateProfile(userAuth, {
+      //       displayName: name,
+      //       photoURL: profilePic,
+      //     }).then(() => {
+      //       dispatch(
+      //         login({
+      //           email: userAuth.user.email,
+      //           uid: userAuth.user.uid,
+      //           displayName: name,
+      //           photoUrl: profilePic,
+      //         })
+      //       );
+      //     });
+      //   })
+      //   .catch((error) => alert(error));
+      // createUserWithEmailAndPassword(auth, email, password).then(
+      //   (userAuth: any) => {
+      //     updateUserProfile(userAuth);
+      //     console.log(name);
+      //     dispatch(
+      //       login({
+      //         email: userAuth.user.email,
+      //         uid: userAuth.user.uid,
+      //         displayName: name,
+      //         photoURL: profilePic,
+      //       })
+      //     );
+      //   }
+      // );
     }
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
     <div className="login">
@@ -93,7 +148,7 @@ function Login() {
       </form>
       <p>
         Not a member?{" "}
-        <span className="login__register" onClick={register}>
+        <span className="login__register" onClick={signUp}>
           Register Now
         </span>
       </p>

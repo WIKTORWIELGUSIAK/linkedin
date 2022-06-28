@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="app">
       <Navbar></Navbar>
-      {!user ? (
+      {!auth.currentUser ? (
         <Login />
       ) : (
         <div className="app__body">
