@@ -7,5 +7,3 @@ You can register or use a prepared account.
 Login credentials for prepared account:
 Login: admin@test.com
 Password: admin1
-
-Translated with www.DeepL.com/Translator (free version)
