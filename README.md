@@ -5,6 +5,7 @@ Authentication is done with firebase auth.
 The application uses redux toolkit to handle global variables.
 You can register or use a prepared account.
 
+
 Login credentials for prepared account:
 
 Login: admin@test.com
